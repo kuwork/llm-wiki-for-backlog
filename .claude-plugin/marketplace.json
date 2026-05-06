@@ -1,21 +1,21 @@
 {
-  "name": "llm-wiki-skill",
+  "name": "llm-wiki-for-backlog",
   "owner": {
     "name": "cosen1024",
-    "url": "https://github.com/cosen1024"
+    "url": "https://github.com/kuwork"
   },
   "metadata": {
-    "description": "Build and maintain LLM-powered personal knowledge bases using the Karpathy Wiki pattern.",
+    "description": "Build and maintain LLM-powered personal knowledge bases using the Karpathy Wiki pattern, adapted for Backlog.md workflow.",
     "version": "1.0.0"
   },
   "plugins": [
     {
-      "name": "llm-wiki-skill",
+      "name": "llm-wiki-for-backlog",
       "source": {
         "source": "url",
-        "url": "https://github.com/cosen1024/llm-wiki-skill.git"
+        "url": "https://github.com/kuwork/llm-wiki-for-backlog.git"
       },
-      "description": "Build and maintain LLM-powered personal knowledge bases using the Karpathy Wiki pattern.",
+      "description": "Build and maintain LLM-powered personal knowledge bases using the Karpathy Wiki pattern, adapted for Backlog.md workflow.",
       "version": "1.0.0",
       "strict": true
     }
