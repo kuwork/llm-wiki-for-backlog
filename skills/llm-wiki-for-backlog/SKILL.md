@@ -42,7 +42,8 @@ Personal knowledge base where the LLM is the sole maintainer. Human feeds source
 │   │   ├── sources/          # One summary per backlog source (task, doc, decision, etc.)
 │   │   ├── concepts/         # Concept articles extracted from backlog
 │   │   ├── entities/         # People, tools, projects, orgs mentioned in backlog
-│   │   └── comparisons/      # Cross-cutting analyses across tasks/docs/decisions
+│   │   ├── comparisons/      # Cross-cutting analyses across tasks/docs/decisions
+│   │   └── userguide/        # Optional: structured user manual (see UserGuide section below)
 │   └── wiki_output/          # Layer 3: Query products. Valuable results → flow back to wiki/
 │       ├── reports/
 │       ├── slides/           # Marp format
@@ -270,6 +271,35 @@ The LLM reads from the following backlog folders as raw input. These are immutab
 - `wiki/concepts/` — Extracted concept articles
 - `wiki/entities/` — People, tools, projects, organizations
 - `wiki/comparisons/` — Cross-cutting analyses
+- `wiki/userguide/` — Optional structured user manual (see UserGuide section below)
+
+### UserGuide (`wiki/userguide/`)
+
+An optional directory for rendering a structured, book-style user manual. It uses `SUMMARY.md` to define navigation and organizes content into numbered chapter folders.
+
+**LLM instruction:** When building or maintaining `wiki/userguide/`, read the full specification from this skill's bundled asset file before proceeding:
+- **Read first:** `{skill-dir}/references/userguide-writing-guide.md`
+
+That file covers directory layout, naming conventions (`NN-章节名` folders, `NN-标题.md` pages), `SUMMARY.md` syntax rules, content style (de-numbered headings, heading-level usage), asset strategy (global vs chapter-private), extended syntax (Mermaid, Chart/Graph, raw HTML), and a pre-publish checklist.
+
+**Merging into a single document:** This skill includes a Python tool to merge `README.md` + `SUMMARY.md` and all referenced pages into one auto-numbered markdown file. The tool lives at `{skill-dir}/scripts/merge.py`.
+
+**LLM execution instruction:** When the user asks to merge or compile the userguide, run the tool with the project source directory as input:
+- **Input:** `backlog/wiki/userguide/` (or the directory containing `README.md` + `SUMMARY.md`)
+- **Output document:** `backlog/wiki_output/用户手册/guide.md`
+- **Output assets:** `backlog/wiki_output/用户手册/assets/` (local images are copied here and paths are rewritten)
+
+Key behaviors:
+- `README.md` goes first (headings preserved, not numbered)
+- `SUMMARY.md` `##` groups become `#` headings with numbers (`1`, `2`...)
+- Page headings are downgraded by their SUMMARY depth:
+  - SUMMARY level 2 (top link `- [Title]`): downgrade by 1 (`#` → `##`)
+  - SUMMARY level 3 (nested `    - [Title]`): downgrade by 2 (`#` → `###`, `##` → `####`)
+  - Deeper nesting follows the same pattern, capped at level 6
+- **Title reconciliation**: If a page lacks a `#` heading, a synthetic one is inserted using the SUMMARY link title. If the page's `#` heading differs from the SUMMARY link title, the SUMMARY title wins.
+- All headings are auto-numbered in a tree structure (`1.1`, `1.1.1`, `1.1.1.1`...)
+- **Asset collection**: Local image references (`![alt](path)`) are resolved, copied to the output `assets/` folder, and rewritten as `assets/filename`
+- Fenced code blocks are protected from mis-parsing; YAML frontmatter is stripped
 
 ### Rules
 - **NEVER** write to `tasks/`, `docs/`, `decisions/`, or other backlog source folders during wiki operations
