@@ -43,7 +43,7 @@ Personal knowledge base where the LLM is the sole maintainer. Human feeds source
 │   │   ├── concepts/         # Concept articles extracted from backlog
 │   │   ├── entities/         # People, tools, projects, orgs mentioned in backlog
 │   │   ├── comparisons/      # Cross-cutting analyses across tasks/docs/decisions
-│   │   └── userguide/        # Optional: structured user manual (see UserGuide section below)
+│   │   └── usermanual/       # Optional: structured user manual (see UserManual section below)
 │   └── wiki_output/          # Layer 3: Query products. Valuable results → flow back to wiki/
 │       ├── reports/
 │       ├── slides/           # Marp format
@@ -271,22 +271,22 @@ The LLM reads from the following backlog folders as raw input. These are immutab
 - `wiki/concepts/` — Extracted concept articles
 - `wiki/entities/` — People, tools, projects, organizations
 - `wiki/comparisons/` — Cross-cutting analyses
-- `wiki/userguide/` — Optional structured user manual (see UserGuide section below)
+- `wiki/usermanual/` — Optional structured user manual (see UserManual section below)
 
-### UserGuide (`wiki/userguide/`)
+### UserManual (`wiki/usermanual/`)
 
 An optional directory for rendering a structured, book-style user manual. It uses `SUMMARY.md` to define navigation and organizes content into numbered chapter folders.
 
-**LLM instruction:** When building or maintaining `wiki/userguide/`, read the full specification from this skill's bundled asset file before proceeding:
-- **Read first:** `{skill-dir}/references/userguide-writing-guide.md`
+**LLM instruction:** When building or maintaining `wiki/usermanual/`, read the full specification from this skill's bundled asset file before proceeding:
+- **Read first:** `{skill-dir}/references/usermanual-writing-guide.md`
 
 That file covers directory layout, naming conventions (`NN-章节名` folders, `NN-标题.md` pages), `SUMMARY.md` syntax rules, content style (de-numbered headings, heading-level usage), asset strategy (global vs chapter-private), extended syntax (Mermaid, Chart/Graph, raw HTML), and a pre-publish checklist.
 
 **Merging into a single document:** This skill includes a Python tool to merge `README.md` + `SUMMARY.md` and all referenced pages into one auto-numbered markdown file. The tool lives at `{skill-dir}/scripts/merge.py`.
 
-**LLM execution instruction:** When the user asks to merge or compile the userguide, run the tool with the project source directory as input:
-- **Input:** `backlog/wiki/userguide/` (or the directory containing `README.md` + `SUMMARY.md`)
-- **Output document:** `backlog/wiki_output/用户手册/guide.md`
+**LLM execution instruction:** When the user asks to merge or compile the usermanual, run the tool with the project source directory as input:
+- **Input:** `backlog/wiki/usermanual/` (or the directory containing `README.md` + `SUMMARY.md`)
+- **Output document:** `backlog/wiki_output/用户手册/manual.md`
 - **Output assets:** `backlog/wiki_output/用户手册/assets/` (local images are copied here and paths are rewritten)
 
 Key behaviors:

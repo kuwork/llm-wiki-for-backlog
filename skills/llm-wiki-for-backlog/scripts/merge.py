@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-UserGuide Merger
+UserManual Merger
 
 Merges README.md + SUMMARY.md and all referenced pages into a single
 auto-numbered markdown file, copying local assets into the output directory.
@@ -191,7 +191,7 @@ def process_page(content, summary_title, offset):
 	return new_lines
 
 
-def merge_userguide(input_dir, output_path):
+def merge_usermanual(input_dir, output_path):
 	input_dir = Path(input_dir).resolve()
 	output_path = Path(output_path).resolve()
 	output_dir = output_path.parent
@@ -296,18 +296,18 @@ def merge_userguide(input_dir, output_path):
 
 def main():
 	parser = argparse.ArgumentParser(
-		description="Merge userguide (README + SUMMARY + pages) into a single numbered markdown file."
+		description="Merge usermanual (README + SUMMARY + pages) into a single numbered markdown file."
 	)
 	parser.add_argument("input_dir", help="Directory containing README.md and SUMMARY.md")
 	parser.add_argument(
 		"-o",
 		"--output",
-		default="backlog/wiki_output/用户手册/guide.md",
+		default="backlog/wiki_output/用户手册/manual.md",
 		help="Output file path (default: backlog/wiki_output/用户手册/guide.md)",
 	)
 	args = parser.parse_args()
 
-	merge_userguide(args.input_dir, args.output)
+	merge_usermanual(args.input_dir, args.output)
 	return 0
 
 
