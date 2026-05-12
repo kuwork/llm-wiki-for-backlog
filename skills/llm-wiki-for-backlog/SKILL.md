@@ -153,8 +153,12 @@ Before building the wiki, verify that Backlog.md has been initialized in the pro
 1. Read the source thoroughly
 2. Discuss key takeaways with user (3–5 bullets)
 3. Create summary page in `wiki/sources/` with frontmatter linking back to original backlog file
+   - In the page body, include a **Related Concepts** section listing linked concepts using `[[concepts/concept-name]]`
+   - Include a **Related Sources** section (if applicable) using `[[sources/other-source-name]]`
 4. For each significant concept → create or **update** page in `wiki/concepts/`
+   - In the concept page, include **Related Concepts** and **Related Sources** sections with `[[wikilinks]]`
 5. For each significant entity → create or **update** page in `wiki/entities/`
+   - In the entity page, include **Related Entities**, **Related Concepts**, and **Related Sources** sections with `[[wikilinks]]`
 6. Update `wiki/index.md` with all new/changed pages
 7. Update `wiki/overview.md` if the big picture shifts
 8. Append to `wiki/log.md` with full timestamp `## [YYYY-MM-DD HH:mm:ss] {op} | {title}`
@@ -227,12 +231,57 @@ Before building the wiki, verify that Backlog.md has been initialized in the pro
 ## Conventions
 
 ### Essential Rules
-- **`[[Wikilinks]]`** for ALL cross-references
+- **`[[Wikilinks]]`** for ALL cross-references within the wiki — including `index.md` tables
 - **YAML frontmatter** on every page: `type`, `title`, `updated` at minimum
 - **Backlog source folders are immutable** — the LLM never writes to `tasks/`, `docs/`, `decisions/`, etc.
 - **Filenames:** lowercase-with-hyphens
 - **Exclude `wiki/` and `wiki_output/` from ingestion** — absolute rule to prevent recursion
 - **The wiki is part of the git repo** — commit after significant operations
+
+#### Wikilink Format (CRITICAL)
+
+**Always** use `[[path/to/file]]` (without `.md` extension) for links between wiki pages. This is the only format that works consistently across Obsidian, GitLab, and other wikilink-aware tools.
+
+**In `index.md` tables, use wikilinks in the first column:**
+
+```markdown
+| File | Title | Type | Desc |
+|------|-------|------|------|
+| [[sources/task-1-offline-encryption]] | TASK-1: Offline Encryption | Epic | Offline local encryption mechanism |
+| [[concepts/keyvault]] | KeyVault | Concept | Core encryption key management |
+```
+
+**In page bodies (sources, concepts, entities), use wikilinks in Related sections:**
+
+```markdown
+## Related Concepts
+- [[concepts/keyvault]] — Core encryption key management
+- [[concepts/zero-trust]] — Zero-trust architecture principles
+
+## Related Sources
+- [[sources/task-1-offline-encryption]] — Original implementation task
+- [[sources/adr-003-security-model]] — Security ADR
+```
+
+**❌ NEVER use standard Markdown links for internal wiki pages:**
+```markdown
+| Source | Type | Summary |
+|--------|------|---------|
+| [source-security-module](sources/source-security-module.md) | source | Security module summary |
+
+## Related Concepts
+- [KeyVault](concepts/keyvault.md)
+```
+
+**✅ ALWAYS use wikilinks:**
+```markdown
+| Source | Type | Summary |
+|--------|------|---------|
+| [[sources/source-security-module]] | source | Security module summary |
+
+## Related Concepts
+- [[concepts/keyvault]]
+```
 
 ---
 
@@ -305,6 +354,10 @@ Key behaviors:
 - **NEVER** write to `tasks/`, `docs/`, `decisions/`, or other backlog source folders during wiki operations
 - **NEVER** recursively ingest `wiki/` or `wiki_output/`
 - Use `[[wikilinks]]` for all cross-references within the wiki
+  - **CRITICAL:** In `index.md` tables, use `[[path/to/file]]` (without `.md`) as the cell value, not standard Markdown links like `[text](path.md)`
+  - Example: `| [[sources/task-1-feature]] | Task | Description |` — NOT `| [task-1](sources/task-1.md) | Task | Description |`
+  - **CRITICAL:** In page bodies (sources, concepts, entities), Related Concepts / Related Sources / Related Entities sections must also use `[[path/to/file]]`, not `[text](path.md)`
+  - Example: `- [[concepts/keyvault]]` — NOT `- [KeyVault](concepts/keyvault.md)`
 - Append-only for `wiki/log.md`
 - YAML frontmatter on every wiki page: `type`, `title`, `updated`
 - Filenames: lowercase-with-hyphens
