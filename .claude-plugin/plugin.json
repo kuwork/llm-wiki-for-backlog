@@ -1,13 +1,13 @@
 {
-  "name": "llm-wiki-skill",
+  "name": "llm-wiki-for-backlog",
   "version": "1.0.0",
-  "description": "Build and maintain LLM-powered personal knowledge bases using the Karpathy Wiki pattern, adapted for Backlog.md workflow.",
+  "description": "A skill purpose-built for the Backlog.md workflow: the LLM incrementally compiles your Backlog.md tasks, docs, and decisions into a persistent, interlinked Markdown wiki using the Karpathy LLM Wiki pattern, with no vector database or extra raw folder.",
   "author": {
-    "name": "cosen1024",
-    "url": "https://github.com/cosen1024"
+    "name": "kuwork",
+    "url": "https://github.com/kuwork"
   },
-  "homepage": "https://github.com/cosen1024/llm-wiki-skill",
-  "repository": "https://github.com/cosen1024/llm-wiki-skill",
+  "homepage": "https://github.com/kuwork/llm-wiki-for-backlog",
+  "repository": "https://github.com/kuwork/llm-wiki-for-backlog",
   "license": "MIT",
-  "keywords": ["wiki", "knowledge-base", "backlog", "documentation", "notes", "karpathy", "backlog-md", "tasks", "decisions"]
+  "keywords": ["backlog", "backlog-md", "backlog-workflow", "wiki", "llm-wiki", "knowledge-base", "markdown", "markdown-wiki", "tasks", "docs", "decisions", "adr", "documentation", "notes", "wikilinks", "karpathy", "claude-code", "ai-agent"]
 }

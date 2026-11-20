@@ -1,11 +1,11 @@
 {
   "name": "llm-wiki-for-backlog",
   "owner": {
-    "name": "cosen1024",
+    "name": "kuwork",
     "url": "https://github.com/kuwork"
   },
   "metadata": {
-    "description": "Build and maintain LLM-powered personal knowledge bases using the Karpathy Wiki pattern, adapted for Backlog.md workflow.",
+    "description": "A skill purpose-built for the Backlog.md workflow: the LLM incrementally compiles your Backlog.md tasks, docs, and decisions into a persistent, interlinked Markdown wiki using the Karpathy LLM Wiki pattern, with no vector database or extra raw folder.",
     "version": "1.0.0"
   },
   "plugins": [
@@ -15,7 +15,7 @@
         "source": "url",
         "url": "https://github.com/kuwork/llm-wiki-for-backlog.git"
       },
-      "description": "Build and maintain LLM-powered personal knowledge bases using the Karpathy Wiki pattern, adapted for Backlog.md workflow.",
+      "description": "A skill purpose-built for the Backlog.md workflow: the LLM incrementally compiles your Backlog.md tasks, docs, and decisions into a persistent, interlinked Markdown wiki using the Karpathy LLM Wiki pattern, with no vector database or extra raw folder.",
       "version": "1.0.0",
       "strict": true
     }
